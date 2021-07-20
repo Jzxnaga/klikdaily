@@ -3,15 +3,18 @@ import 'react-dropdown/style.css';
 
 import Icon, { FontAwesome, Feather } from 'react-web-vector-icons';
 
+import { useAlert } from 'react-alert'
 import Select from 'react-select';
+
+import Modal from 'react-modal';
+
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import DatePicker from "react-datepicker";
 require('react-datepicker/dist/react-datepicker.css')
 
 const axios = require('axios');
-
-
-
 
 
 
@@ -113,7 +116,6 @@ function CreateOrder() {
 
         if(MultiState.distributionCenterName !== '' && MultiState.employee_name !== ''
             && MultiState.distributionCenterName !== undefined && MultiState.employee_name !== undefined ){
-            console.log('masuk sini')
             status = true
         }else if (
             MultiState.distributionCenterName == '' && MultiState.employee_name == '' 
@@ -143,7 +145,6 @@ function CreateOrder() {
             if(MultiStateProduct[i].totalPrice == 0 || MultiStateProduct[i].productName == '' || MultiStateProduct[i].productName == undefined
                 || MultiStateProduct[i].productUnitName == '' || MultiStateProduct[i].productUnitName == undefined
                 ){
-                console.log('masuk sini kalo masi salah')
                 return true
             }else{
 
@@ -156,11 +157,25 @@ function CreateOrder() {
         return status
     }
 
+    const [modalIsOpen, setIsOpen] = useState(false);
+
     const confirmData = (e) =>{
+
+        setIsOpen(true)
+
         e.preventDefault()
         console.log(checkingData())
+        console.log(MultiState)
+        console.log(MultiStateProduct)
+
+
         // console.log(MultiState)
         // console.log(StatusConfirm,'jikatruesudahbenar')
+    }
+
+
+    function closeModal() {
+        setIsOpen(false);
     }
 //refresh and check
 
@@ -201,13 +216,55 @@ function CreateOrder() {
         {productUnitName:'Karton',isDisabled:false,selected:false},
         {productUnitName:'Pak',isDisabled:false,selected:false},
         {productUnitName:'Pcs',isDisabled:false,selected:false}])
+
+    const rowUnitModal = MultiStateProduct.map((item,n) =>{
+        return(
+            <div style={{padding:5,height:'13.5vh',backgroundColor: 'rgba(232, 236, 241, 1)', marginTop: '2.5vh' ,marginLeft:'1vw',display:'flex',flexDirection: "column"}}key={n}>
+                <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                    <div style={{width:'25vw'}}>
+                    <p>Product Name</p>
+                    </div>
+                    <p>{MultiStateProduct[n].productName}</p>
+                </div>
+
+                <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                    <div style={{width:'25vw'}}>
+                    <p>Product Unit Name</p>
+                    </div>
+                    <p>{MultiStateProduct[n].productUnitName}</p>
+                </div>
+
+                <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                    <div style={{width:'25vw'}}>
+                    <p>Product Unit quantity</p>
+                    </div>
+                    <p>{MultiStateProduct[n].quantity}</p>
+                </div>
+
+                <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                    <div style={{width:'25vw'}}>
+                    <p>Product Unit price</p>
+                    </div>
+                    <p>{MultiStateProduct[n].price}</p>
+                </div>
+
+                <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                    <div style={{width:'25vw'}}>
+                    <p>Product Unit Total</p>
+                    </div>
+                    <p>{MultiStateProduct[n].totalPrice}</p>
+                </div>
+            </div>
+            )
+    })
+
     
     const rowUnit = MultiStateProduct.map((item,n) =>{
             //console.log(item,'---------------------all list item here')
             return(
                 <div key={n}>
                 <div className='BodyForm'>
-                    <h5> Product No : {n+1}</h5>
+                    <h5> Product No {n+1}</h5>
                         <div style={{border: ``,display:"flex", flexDirection: "row" , marginTop:"1vw" , marginLeft:"1vw",justifyContent:'space-between'}}>
                             <div style={{flexDirection: "column"}}>
                                 <label>
@@ -336,11 +393,8 @@ function CreateOrder() {
             for(var i in newData)
             {
                 if(newData[i].productUnitName == e[target]){
-                    console.log(newData[i].productUnitName,'=true')
-                    console.log('selectedBy',key)
                     newData[i].isDisabled=true
                 }else if(newData[i].productUnitName !== e[target]){
-                    console.log(oldData[i].productUnitName,'=', oldData[i].isDisabled,'mengikuti old')
                     newData[i].isDisabled=oldData[i].isDisabled
                 }
                 
@@ -396,6 +450,18 @@ function CreateOrder() {
 
         )
     }
+
+    const customStylesModal = {
+    content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            width:'40vw',
+            transform: 'translate(-50%, -50%)',
+        },
+    };
 
 
 
@@ -461,7 +527,7 @@ function CreateOrder() {
                         </div>
 
 
-                        { checkNameAndLocation() == false &&
+                        { checkNameAndLocation() == false || true &&
                         <div>
                         <div style={{border: ``,display:"flex", flexDirection: "row" , marginTop:"1vw" , marginLeft:"1vw"}}>
                             <div style={{flexDirection: "column"}}>
@@ -520,7 +586,7 @@ function CreateOrder() {
             </div>
 
 
-            { checkNameAndLocation() == false &&
+            { checkNameAndLocation() == false || true &&
             <div className='Component'> 
                 <div className='HeadComponent'>
                     <h4 style={{ marginLeft: '0.5vw'}}>
@@ -575,6 +641,63 @@ function CreateOrder() {
                 </div>
 
             </div>
+
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStylesModal}
+                contentLabel="Example Modal"
+                >
+
+                <div>
+                    <div style={{height:'2vh'}}>
+                        <h1>Detail</h1>
+                    </div>
+
+                    <div style={{padding:5,height:'10vh',backgroundColor: 'rgba(232, 236, 241, 1)', marginTop: '2.5vh' ,marginLeft:'1vw',display:'flex',flexDirection: "column"}}>
+
+                    <div>
+                        <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                            <div style={{width:'25vw'}}>
+                                <p>Employee Name</p>
+                            </div>
+                                <p>{MultiState.employee_name}</p>
+                        </div>
+                        <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                            <div style={{width:'25vw'}}>
+                                <p>Distributin Center Name</p>
+                            </div>
+                                <p>{MultiState.distributionCenterName}</p>
+                        </div>
+                        <div style={{display:"flex", flexDirection: "row", marginTop:"0vw",height:'2vh'}}>
+                            <div style={{width:'25vw'}}>
+                                <p>Payment Type Name</p>
+                            </div>
+                                <p>{MultiState.paymentTypeName}</p>
+                        </div>
+
+                    </div>
+
+                    </div>
+
+
+
+
+                    <div style={{height:'2vh'}}>
+                        <h1>Products</h1>
+                    </div>
+                    {rowUnitModal}
+                    <div style={{marginTop:'1vw',marginLeft:'1vw',marginRight:'3vw',display:'flex',width:'90%',flexDirection:'row',justifyContent:'space-between'}}>
+                        <h3>
+                            Total 
+                        </h3>
+                        {totalPrice()}
+                    </div>
+
+                </div>
+
+                <button onClick={closeModal}>close</button>
+            </Modal>
 
         </div>
   );

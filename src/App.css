@@ -9,6 +9,7 @@
 
 .Container {
     margin-top: 10vh;
+    margin-bottom: 10vh;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
