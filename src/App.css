@@ -1,0 +1,164 @@
+.App {
+/*    text-align: center;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    background-color: white;
+}
+
+.Container {
+    margin-top: 10vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: rgba(232, 236, 241, 1);
+    flex-direction: column;
+    min-height: 40vh;
+    width: 50vw;
+    padding: 0.5vw;
+    border-radius: 15px;
+    border: `2px solid red`
+}
+
+.Title{
+    background-color: transparent;
+    min-height: 1vh;
+}
+
+.BodyContainer{
+    background-color: white;
+    min-height: 1vh;
+    border-radius: 15px;
+}
+
+.Component{
+    display: flex;
+    flex-direction: row;
+}
+
+.HeadComponent{
+    min-width: 10vw;
+}
+
+.BodyComponent{
+    min-width: 40vw;
+}
+
+.BodyForm{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 20vh;
+    width: 37.5vw;
+}
+
+
+
+
+
+
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-container .react-datepicker-wrapper {
+  margin: 12px 0;
+  width: 100%;
+}
+
+.input-container .react-datepicker-wrapper input {
+  padding: 4px 12px;
+}
+
+.summary {
+  font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+/*  background-color: #282c34;*/
+  min-height: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+/*  color: white;*/
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
