@@ -381,28 +381,48 @@ function CreateOrder() {
         //targeting array in multistate
         if(target=='productUnitName'){
             newArr[key] = {...newArr[key], [target]:e[target]}
-            
-            let newData = 
-            [
-            {productUnitName:'Karton',isDisabled:false,selected:false},
-            {productUnitName:'Pak',isDisabled:false,selected:false},
-            {productUnitName:'Pcs',isDisabled:false,selected:false}
-            ]
 
-            let oldData = OptionProductUnitName
-            for(var i in newData)
-            {
-                if(newData[i].productUnitName == e[target]){
-                    newData[i].isDisabled=true
-                }else if(newData[i].productUnitName !== e[target]){
-                    newData[i].isDisabled=oldData[i].isDisabled
+            console.log('masuk sini',newArr)
+
+            let newData = [...OptionProductUnitName]
+
+            for(var i in newData){
+                console.log(newData[i].productUnitName)
+                for(var l in newArr){
+                    if(newData[i].productUnitName==newArr[l].productUnitName){
+                        newData[i].isDisabled=true
+                        break;
+                    }else{
+                        newData[i].isDisabled=false
+                    }
                 }
+            }
+            
+            // let newData = 
+            // [
+            // {productUnitName:'Karton',isDisabled:false,selected:false},
+            // {productUnitName:'Pak',isDisabled:false,selected:false},
+            // {productUnitName:'Pcs',isDisabled:false,selected:false}
+            // ]
+
+            // let oldData = OptionProductUnitName
+            // for(var i in newData)
+            // {
+            //     if(newData[i].productUnitName == e[target]){
+            //         newData[i].isDisabled=true
+            //     }else if(newData[i].productUnitName !== e[target]){
+            //         newData[i].isDisabled=oldData[i].isDisabled
+            //     }
                 
-            }     
+            // }     
 
             //console.log(newData)
 
-            setOptionProductUnitName(newData)
+            //setOptionProductUnitName(newData)
+
+
+
+
 
         }else if(target=='quantity'||target=='price'){
             newArr[key] = {...newArr[key], [target]:e.target.value}
@@ -527,7 +547,7 @@ function CreateOrder() {
                         </div>
 
 
-                        { checkNameAndLocation() == false || true &&
+                        { checkNameAndLocation() == false &&
                         <div>
                         <div style={{border: ``,display:"flex", flexDirection: "row" , marginTop:"1vw" , marginLeft:"1vw"}}>
                             <div style={{flexDirection: "column"}}>
@@ -586,7 +606,7 @@ function CreateOrder() {
             </div>
 
 
-            { checkNameAndLocation() == false || true &&
+            { checkNameAndLocation() == false &&
             <div className='Component'> 
                 <div className='HeadComponent'>
                     <h4 style={{ marginLeft: '0.5vw'}}>
