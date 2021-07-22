@@ -397,32 +397,6 @@ function CreateOrder() {
                     }
                 }
             }
-            
-            // let newData = 
-            // [
-            // {productUnitName:'Karton',isDisabled:false,selected:false},
-            // {productUnitName:'Pak',isDisabled:false,selected:false},
-            // {productUnitName:'Pcs',isDisabled:false,selected:false}
-            // ]
-
-            // let oldData = OptionProductUnitName
-            // for(var i in newData)
-            // {
-            //     if(newData[i].productUnitName == e[target]){
-            //         newData[i].isDisabled=true
-            //     }else if(newData[i].productUnitName !== e[target]){
-            //         newData[i].isDisabled=oldData[i].isDisabled
-            //     }
-                
-            // }     
-
-            //console.log(newData)
-
-            //setOptionProductUnitName(newData)
-
-
-
-
 
         }else if(target=='quantity'||target=='price'){
             newArr[key] = {...newArr[key], [target]:e.target.value}
@@ -547,7 +521,7 @@ function CreateOrder() {
                         </div>
 
 
-                        { checkNameAndLocation() == false &&
+                        { checkNameAndLocation() == true &&
                         <div>
                         <div style={{border: ``,display:"flex", flexDirection: "row" , marginTop:"1vw" , marginLeft:"1vw"}}>
                             <div style={{flexDirection: "column"}}>
@@ -606,7 +580,7 @@ function CreateOrder() {
             </div>
 
 
-            { checkNameAndLocation() == false &&
+            { checkNameAndLocation() == true &&
             <div className='Component'> 
                 <div className='HeadComponent'>
                     <h4 style={{ marginLeft: '0.5vw'}}>
